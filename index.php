@@ -10,6 +10,12 @@ session_start();
     <title>Login Page</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .user-image{
+    height: 250px;
+    width: 250px;
+}
+    </style>
 </head>
 <body>
 <div class="container">

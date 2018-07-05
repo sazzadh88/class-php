@@ -10,6 +10,31 @@ exit;
 //Add DB Configuration
 require 'config/db.php';
 
+
+//Update Query
+
+if(isset($_POST['update'])){
+
+	$name = $_POST['name'];
+	$phone_no = $_POST['phone_no'];
+	$address = $_POST['address'];
+
+	$email = $_SESSION['email'];
+
+
+
+	$stmt = $conn->prepare("UPDATE users SET name = :name, phone_no = :phone_no, address = :address WHERE email = :email");
+	$stmt->execute([':name' => $name, ':phone_no' => $phone_no, ':address' => $address, ':email' => $email]);
+
+	if($stmt->rowCount() == 1){
+		 $msg = "<div class='mt20 alert alert-success'>Profile Updated :)</div>";
+	}else{
+		 $msg = "<div class='mt20 alert alert-danger'>Error :(</div>";
+	}
+
+}	
+
+
 //Query to fetch Data
 $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
 $stmt->execute([':email' => $_SESSION['email']]);
@@ -27,6 +52,10 @@ $data = $stmt->fetchObject();
     	.top{
     		margin-top: 50px;
     	}
+    	.user-image{
+    height: 250px;
+    width: 250px;
+}
     </style>
 </head>
 <body>
@@ -34,7 +63,9 @@ $data = $stmt->fetchObject();
 	<div class="container top">
 		<div class="row text-center">
 			<div class="col-md-4">
-				<img src="img/user.png" alt="" class="user-image">
+				<img src="<?php echo $data->user_img; ?>" alt="" class="user-image">
+				<br>
+				<a href="update-pic.php" class="btn btn-info">Update Picture</a>
 			</div>
 			<div class="col-md-6">
 				<table class="table">
@@ -73,59 +104,11 @@ $data = $stmt->fetchObject();
 
 		</div>
 
-		<?php
-
-		if(isset($_POST['update'])){
-			
-		}
-
-	
-		?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
+	<?php echo $msg; ?>
+				
 	</div>
 
 	<script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
