@@ -31,6 +31,8 @@
         </div>
     </div>
 </div>
+
+
 <?php
 
 require "config/db.php";
@@ -42,14 +44,26 @@ if(isset($_POST['submit'])){
     $address = $_POST['address'];
     $password = md5($_POST['password']);
 
-    $stmt = $conn->prepare("INSERT INTO users VALUES (:id,:name,:email,:phone_no,:address, :password,:signup_date)");
-    $stmt->execute([':id' => NULL,':name' => $name,':email' => $email, ':phone_no' => $phone_no,':address' => $address, ':password' => $password,':signup_date' => date('Y-m-d')]);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->execute([':email' => $email]);
+    
     if($stmt->rowCount() == 1){
         
-        echo "<div class='mt20 alert alert-success'>Registration Successful :)</div>";
-
+        echo "<div class='mt20 alert alert-danger'>Email ID exists !</div>";
+    
     }else{
-        echo "<div class='mt20 alert alert-danger'>Failed :(</div>";
+        $stmt = $conn->prepare("INSERT INTO users VALUES (:id,:name,:email,:user_pic, :phone_no,:address, :password,:signup_date)");
+        
+        $stmt->execute([':id' => NULL,':name' => $name,':email' => $email,':user_pic' => 'img/user.png' ,':phone_no' => $phone_no,':address' => $address, ':password' => $password,
+            ':signup_date' => date('Y-m-d')]);
+        
+        if($stmt->rowCount() == 1){
+            
+            echo "<div class='mt20 alert alert-success'>Registration Successful :)</div>";
+
+        }else{
+            echo "<div class='mt20 alert alert-danger'>Failed :(</div>";
+        }
     }
 }
 ?>

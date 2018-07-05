@@ -34,32 +34,94 @@ $data = $stmt->fetchObject();
 	<div class="container top">
 		<div class="row text-center">
 			<div class="col-md-4">
-				<img src="<?php echo $data->user_img ?>" alt="" class="user-image">
+				<img src="img/user.png" alt="" class="user-image">
 			</div>
 			<div class="col-md-6">
 				<table class="table">
+					<form action="" method="POST">
 					<tr>
 						<td>Name: </td>
-						<td><?php echo $data->name ?></td>
+						<td>
+							<input type="text" name="name" value="<?php echo $data->name ?>">
+						</td>
 					</tr>
 					<tr>
 						<td>E-mail:</td>
-						<td><?php echo $data->email ?></td>
+						<td>
+							<input type="email" name="email" value="<?php echo $data->email ?>" readonly>
+						</td>
 					</tr>
 					<tr>
 						<td>Phone:</td>
-						<td><?php echo $data->phone_no ?></td>
+						<td>
+							<input type="text" name="phone_no" value="<?php echo $data->phone_no ?>">
+						</td>
 					</tr>
 					<tr>
 						<td>Address:</td>
-						<td><?php echo $data->address ?></td>
+						<td>
+							<input type="text" name="address" value="<?php echo $data->address ?>">
+						</td>
 					</tr>
 				</table>
-				<a href="edit.php" class="btn btn-info">Edit</a>
+				
+				<button name="update" type="submit" class="btn btn-info">Update</button>
+			</form>
+				<a href="welcome.php" class="btn btn-success">Home</a>
 				<a href="logout.php" class="btn btn-danger">Logout</a>
 			</div>
 
 		</div>
+
+		<?php
+
+		if(isset($_POST['update'])){
+			
+		}
+
+	
+		?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		
 	</div>
 
