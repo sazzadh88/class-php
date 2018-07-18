@@ -45,7 +45,7 @@ require '../config/db.php';
         <td><?=$data->email?></td>
         <td><?=$data->phone_no?></td>
         <td>
-            <a class="btn btn-info" href="edit.php?id=<?=$data->id?>">Edit</a>
+            <a class="btn btn-info" href="edit-user.php?id=<?=$data->id?>">Edit</a>
             <a class="btn btn-danger" href="delete.php?id=<?=$data->id?>">Delete</a>
         </td>
         
