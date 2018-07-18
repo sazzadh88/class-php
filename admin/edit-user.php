@@ -9,6 +9,11 @@ require '../config/db.php';
     <meta charset="UTF-8">
     <title>Admin Login</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        .alert{
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,6 +31,25 @@ require '../config/db.php';
             <div class="col-md-8">
                 <?php
 
+
+                if(isset($_POST['update'])){
+                    $name = $_POST['user_name'];
+                    $email = $_POST['user_email'];
+                    $phone_no = $_POST['user_phone'];
+                    $address = $_POST['user_address'];
+                    $user_id = $_POST['user_id'];
+
+                    $stmt = $conn->prepare("UPDATE users SET name = :name, email = :email, phone_no = :phone_no, address = :address WHERE id = :id");
+                    $stmt->execute([':name' => $name, ':email' => $email, 'phone_no' => $phone_no, ':address' => $address, ':id' => $user_id]);
+                    if($stmt->rowCount() == 1){
+                        $msg = "<div class='alert alert-success'>Updated!</div>";
+                    }else{
+                        $msg = "<div class='alert alert-danger'>Failed!</div>";
+                    }
+                }
+
+
+
                 if(isset($_GET['id'])){
                 $user_id =  intval($_GET['id']);
 
@@ -36,14 +60,16 @@ require '../config/db.php';
 
                 if(empty($data)){
                     $display = "style='display:none'";
-                    echo "<span class='alert alert-danger'>Nothing found!</span>";
+                    echo "<div class='alert alert-danger'>Nothing found!</div>";
                 }
 
                 }else{
                     
-                    echo "<span class='alert alert-danger'>Nothing found!</span>";
+                    echo "<div class='alert alert-danger'>Nothing found!</div>";
 
                 }
+
+
 
                 ?>
                 <form method="POST" action="" <?=$display?>>
@@ -58,12 +84,29 @@ require '../config/db.php';
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="user_address" value="<?=$data->address?>" placeholder="Enter Address">
+
+                        <input type="hidden" name="user_id" value="<?=$user_id?>">
+
+
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="update" class="btn btn-primary">Submit</button>
+                    
                     <a href="dashboard.php" class="btn btn-default">Go Back</a>
+                
                 </form>
+            <?php 
+
+            if(isset($msg)){
+                echo $msg;
+            }
+
+             ?>
+
+               
             </div>
+
+           
         </div>
     </div>
 
