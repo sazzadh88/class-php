@@ -46,7 +46,7 @@ require '../config/db.php';
         <td><?=$data->phone_no?></td>
         <td>
             <a class="btn btn-info" href="edit-user.php?id=<?=$data->id?>">Edit</a>
-            <a class="btn btn-danger" href="delete.php?id=<?=$data->id?>">Delete</a>
+            <button class="btn btn-danger" onclick="test(<?=$data->id?>)">Delete</button>
         </td>
         
     </tr>
@@ -62,6 +62,16 @@ require '../config/db.php';
 
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script>
+        function test(id){
+            var ans = confirm("Are you sure to delete this user?");
+            if(ans){
+                window.location = 'delete-user.php?id=' +id;
+            }else{
+
+            }
+        }
+    </script>
 
 </body>
 
