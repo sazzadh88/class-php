@@ -9,6 +9,11 @@ require '../config/db.php';
     <meta charset="UTF-8">
     <title>Admin Login</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        .active > a{
+            color:#FFF;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,10 +21,10 @@ require '../config/db.php';
         <div class="row">
             <div class="col-md-4">
                 <ul class="list-group">
-                  <li class="list-group-item active">All Users</li>
-                  <li class="list-group-item ">Add User Information</li>
-                  <li class="list-group-item ">Add User Wallet Balance</li>
-                  <li class="list-group-item ">Logout</li>
+                  <li class="list-group-item active"><a href="dashboard.php"> All Users</a></li>
+                  <li class="list-group-item "> <a href="add-user-info.php"> Add User Information</a></li>
+                  <li class="list-group-item "> <a href="add-user-balance.php">Add User Wallet Balance</a></li>
+                  <li class="list-group-item "> <a href="logout.php">Logout</a></li>
                   
                 </ul>
             </div>
@@ -30,11 +35,12 @@ require '../config/db.php';
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Balance</th>
                         <th>Action</th>
                     </tr>
                     <?php 
 
-                    $stmt = $conn->prepare("SELECT * FROM users");
+                    $stmt = $conn->prepare("SELECT * FROM users LEFT JOIN wallet ON users.id = wallet.user_id");
                     $stmt->execute();
 
                     while($data = $stmt->fetchObject()){
@@ -44,6 +50,8 @@ require '../config/db.php';
         <td><?=$data->name?></td>
         <td><?=$data->email?></td>
         <td><?=$data->phone_no?></td>
+        <td><?=$data->balance?></td>
+
         <td>
             <a class="btn btn-info" href="edit-user.php?id=<?=$data->id?>">Edit</a>
             <button class="btn btn-danger" onclick="test(<?=$data->id?>)">Delete</button>

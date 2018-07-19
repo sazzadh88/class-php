@@ -13,6 +13,7 @@ require '../config/db.php';
         .alert{
             margin-top: 20px;
         }
+       
     </style>
 </head>
 
@@ -21,11 +22,12 @@ require '../config/db.php';
         <div class="row">
             <div class="col-md-4">
                 <ul class="list-group">
-                  <li class="list-group-item active">All Users</li>
-                  <li class="list-group-item ">Add User Information</li>
-                  <li class="list-group-item ">Add User Wallet Balance</li>
-                  <li class="list-group-item ">Logout</li>
+                  <li class="list-group-item active"><a href="dashboard.php"> All Users</a></li>
+                  <li class="list-group-item "> <a href="add-user-info.php"> Add User Information</a></li>
+                  <li class="list-group-item "> <a href="add-user-balance.php">Add User Wallet Balance</a></li>
+                  <li class="list-group-item "> <a href="logout.php">Logout</a></li>
                   
+                </ul>
                 </ul>
             </div>
             <div class="col-md-8">
