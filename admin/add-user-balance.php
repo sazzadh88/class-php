@@ -25,7 +25,6 @@ require '../config/db.php';
                   <li class="list-group-item "> <a href="add-user-info.php"> Add User Information</a></li>
                   <li class="list-group-item active"> <a href="add-user-balance.php">Add User Wallet Balance</a></li>
                   <li class="list-group-item "> <a href="logout.php">Logout</a></li>
-                  
                 </ul>
             </div>
             <div class="col-md-8">
@@ -33,7 +32,6 @@ require '../config/db.php';
                  <div class="form-group">
                         <select name="user_id" class="form-control">
                             <?php
-
                                 $stmt = $conn->prepare("SELECT * FROM users");
                                 $stmt->execute();
                                 while($data = $stmt->fetchObject()){

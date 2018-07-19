@@ -42,7 +42,6 @@ require '../config/db.php';
 
                     $stmt = $conn->prepare("SELECT * FROM users LEFT JOIN wallet ON users.id = wallet.user_id");
                     $stmt->execute();
-
                     while($data = $stmt->fetchObject()){
                         ?>
     <tr>
@@ -51,18 +50,16 @@ require '../config/db.php';
         <td><?=$data->email?></td>
         <td><?=$data->phone_no?></td>
         <td><?=$data->balance?></td>
-
         <td>
             <a class="btn btn-info" href="edit-user.php?id=<?=$data->id?>">Edit</a>
             <button class="btn btn-danger" onclick="test(<?=$data->id?>)">Delete</button>
         </td>
-        
     </tr>
-
-                        <?php
+                    <?php
+                    
                     }
-
-                     ?>
+                    
+                    ?>
                 </table>
             </div>
         </div>
